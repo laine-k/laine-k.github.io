@@ -1,6 +1,22 @@
 .sidebar {
-    background-color: lightcoral
+    background-color: rebeccapurple;
+    padding:5%;
+    position: fixed;
+    height: 100vh;
+    width: 20vw;
+    display: inline-block;
+}
+.sidebar a{
+    display: block;
+    color:cornsilk;
+    font-size: 2em;
 }
 .main {  
     background-color: cornsilk;
+    margin-left: 20vw;
+    display: inline-block;
+    padding: 50px;
+}
+section{
+    margin-bottom: 4em;
 }
