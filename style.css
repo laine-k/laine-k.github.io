@@ -2,7 +2,9 @@
     position: fixed;
     top:50px;
     width: 10%;
+    background-color: lightcoral
 }
 .main{
     width: 80%;
+    background-color: cornsilk;
 }
