@@ -1,21 +1,17 @@
 
 <!doctype html>
 <html>
-<head>
- 
+<head> 
     <title>Documentation</title>
-
     <link rel="stylesheet"
       href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
 <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css">
     <script>hljs.initHighlightingOnLoad();</script>
 </head>
-<body>
-        
+<body>        
     <div class="sidebar">              
         <a href="#documentation">Documentation</a>
         <a href="#test">Test</a>
@@ -32,28 +28,18 @@
                     margin: 1em 0;
                 }
         </code></pre>
-
         </section>
         <section id="test">
-            <h2>Test</h2>
-            <p>Lorem ipsum dolor sit amet, ea duo putant euripidis. Ius novum constituam temporibus te, ad mel veri aperiri neglegentur, qui congue dissentias dissentiunt te. Ad sed esse error aeque, simul pertinacia consectetuer in sit. No nam dico iuvaret mandamus, ei pro magna delectus tincidunt. Cu omnis legimus sententiae mea, te dolor debitis ius. Est ea omnes civibus sapientem.
-
-                    Eius utamur consequuntur vel ex, quot clita id qui, his paulo simul commune et. Accumsan officiis pro ut, an congue pertinacia vis. Et vim tale graece menandri. Natum constituto usu no, has modus interesset voluptatibus in, ius et lobortis neglegentur complectitur. Posse feugiat vocibus ei nec, eius graeci gubergren nam in, pertinacia mediocritatem has cu. Sint offendit interpretaris duo ad. Vel ut prima sonet praesent, ipsum atomorum maiestatis ei duo, in vis possim causae definitionem.
-                    
-                    Sed meliore omittantur ut, nam te albucius quaestio disputando. Utroque consequat ius id, falli apeirian oportere his an. In quo iriure numquam, possit fabellas ei sea. Neglegentur definitiones an sed, eos ei dolore vocent, per postulant gubergren et. Vel no omnis legere animal.
-                    
-                    Feugait assentior eu qui, veritus reformidans est te. Liber ignota expetendis ex mel, eam vero harum zril ei, quo in veniam senserit. Ex stet vivendo has. Duo no alii saperet tincidunt, eruditi sanctus corpora an mei, inani delicata voluptatibus cu est.
-                    
-                    Mel illud sadipscing eu, ad vix soleat recteque tractatos. Vix tale persecuti in, cum exerci expetendis no. Cu aliquip efficiantur ius, imperdiet delicatissimi te sit. In eos stet periculis corrumpit, sed sanctus inermis mentitum no, id aliquip laoreet intellegebat sit. Lorem oblique pro ei, pro te enim posidonium.</p>
-                    <pre><code class="css">
-                            pre {
-                                display: block;
-                                font-family: monospace;
-                                white-space: pre;
-                                margin: 1em 0;
-                            }
-                    </code></pre>
-                    
+            <h2>Node setup</h2>
+            <pre><code>
+                    node -v
+                    npm -v
+                    npm install -g express-generator
+                    express projectname
+                    cd projectname
+                    npm i mongodb --save
+                    npm i monk --save
+            </code></pre>                    
         </section>
     </main>    
 </body>
