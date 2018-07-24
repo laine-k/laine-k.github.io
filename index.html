@@ -14,7 +14,8 @@
 <body>        
     <div class="sidebar">              
         <a href="#documentation">Documentation</a>
-        <a href="#test">Test</a>
+        <a href="#nodeSetup">Node setup</a>
+        <a href="#mongodbSetup">MongoDB setup</a>
     </div>
     <main class="main">
         <section id="documentation">
@@ -29,7 +30,7 @@
                 }
         </code></pre>
         </section>
-        <section id="test">
+        <section id="nodeSetup">
             <h2>Node setup</h2>
             <pre><code>
                     node -v
@@ -43,11 +44,92 @@
             </code></pre>   
             <p>Now we are running Node JS webserver, with the Express engine and Jade HTML preprocessor installed.</p> 
             <a href="https://www.mongodb.com/download-center?jmp=nav#community" target="_blank">https://www.mongodb.com/download-center?jmp=nav#community</a></p>
-           <pre><code class="css">                
+                       
         </section>
-        <section id="mongodb">
-            <h2>MongoDB</h2>
+        <section id="mongodbSetup">
+            <h2>MongoDB setup</h2>
             <p>Install MongoDB community server</p>
+            <pre><code>
+                    mkdir data
+
+                    /** Launch MongoDB on Windows - on another cmd window */
+                    "C:\Program Files\MongoDB\Server\versionNR\bin\mongod.exe" --dbpath c:\node\basic-node\data\
+                    
+                    /** Establish connection to MongoDB on the first cmd window */
+                    "C:\Program Files\MongoDB\Server\versionNR\bin\mongo.exe"
+
+                    /** Create db */
+                    use dbname
+
+                    /** Add data */
+                    db.usercollection.insert({ "username" : "testuser1", "email" : "testuser1@testdomain.com" })
+                    
+                    /** See what have you added: */
+                    db.usercollection.find().pretty()
+
+                    /** Add extra data like this: */
+                    db.usercollection.insert(arrayWithJsonObjects);
+            </code></pre>  
+            <p>Edit project file app.js</p>
+            <pre><code>
+                /** Use Monk to let the app talk to MongoDB*/
+                var mongo = require('mongodb');
+                var monk = require('monk');
+                var db = monk('localhost:27017/dbname');
+
+                /** Make db accessable to the router */
+
+                app.use(function(req,res,next){
+                    req.db = db;
+                    next();
+                });
+            </code></pre>   
+            <b>27017 is the default port for MongoDB</b>
+            <small>Error when git commit:
+                    Formatting and Whitespace
+
+                    Formatting and whitespace issues are some of the more frustrating and subtle problems that many developers encounter when collaborating, especially cross-platform. It’s very easy for patches or other collaborated work to introduce subtle whitespace changes because editors silently introduce them, and if your files ever touch a Windows system, their line endings might be replaced. Git has a few configuration options to help with these issues.
+                    
+                    core.autocrlf
+                    If you’re programming on Windows and working with people who are not (or vice-versa), you’ll probably run into line-ending issues at some point. This is because Windows uses both a carriage-return character and a linefeed character for newlines in its files, whereas Mac and Linux systems use only the linefeed character. This is a subtle but incredibly annoying fact of cross-platform work; many editors on Windows silently replace existing LF-style line endings with CRLF, or insert both line-ending characters when the user hits the enter key.
+                    
+                    Git can handle this by auto-converting CRLF line endings into LF when you add a file to the index, and vice versa when it checks out code onto your filesystem. You can turn on this functionality with the core.autocrlf setting. If you’re on a Windows machine, set it to true – this converts LF endings into CRLF when you check out code:
+                    
+                    $ git config --global core.autocrlf true
+                    If you’re on a Linux or Mac system that uses LF line endings, then you don’t want Git to automatically convert them when you check out files; however, if a file with CRLF endings accidentally gets introduced, then you may want Git to fix it. You can tell Git to convert CRLF to LF on commit but not the other way around by setting core.autocrlf to input:
+                    
+                    $ git config --global core.autocrlf input
+                    This setup should leave you with CRLF endings in Windows checkouts, but LF endings on Mac and Linux systems and in the repository.
+                    
+                    If you’re a Windows programmer doing a Windows-only project, then you can turn off this functionality, recording the carriage returns in the repository by setting the config value to false:
+                    
+                    $ git config --global core.autocrlf false
+            </small>
+            <br><br>
+            <p>Edit project file index.js and add Jade template to display the data</p>
+            <pre><code>
+               
+                /*index.js GET Userlist - fill docs var with user data */
+router.get('/userlist', function(req, res) {
+    var db = req.db;
+    var collection = db.get('usercollection');
+    collection.find({},{},function(e,docs){
+        res.render('userlist', {
+            "userlist" : docs
+        });
+    });
+}); 
+/*userlist.jade */
+extends layout
+
+block content
+  h1.
+    User List
+  ul
+    each user, i in userlist
+      li
+        a(href="#{user.email}")= user.username
+            </code></pre>  
         </section>
     </main>    
 </body>
