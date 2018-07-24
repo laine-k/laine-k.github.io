@@ -48,7 +48,7 @@
         </section>
         <section id="mongodbSetup">
             <h2>MongoDB setup</h2>
-            <p>Install MongoDB community server</p>
+            <h3>Install MongoDB community server</h3>
             <pre><code>
                     mkdir data
 
@@ -70,7 +70,7 @@
                     /** Add extra data like this: */
                     db.usercollection.insert(arrayWithJsonObjects);
             </code></pre>  
-            <p>Edit project file app.js</p>
+            <h3>Edit project file app.js</h3>
             <pre><code>
                 /** Use Monk to let the app talk to MongoDB*/
                 var mongo = require('mongodb');
@@ -85,7 +85,8 @@
                 });
             </code></pre>   
             <b>27017 is the default port for MongoDB</b>
-            <small>Error when git commit:
+            <br>
+            <small><a href='https://git-scm.com/book/en/v2/Customizing-Git-Git-Configuration' target="_blank">https://git-scm.com/book/en/v2/Customizing-Git-Git-Configuration</a>Error when git commit:
                     Formatting and Whitespace
 
                     Formatting and whitespace issues are some of the more frustrating and subtle problems that many developers encounter when collaborating, especially cross-platform. It’s very easy for patches or other collaborated work to introduce subtle whitespace changes because editors silently introduce them, and if your files ever touch a Windows system, their line endings might be replaced. Git has a few configuration options to help with these issues.
@@ -106,29 +107,30 @@
                     $ git config --global core.autocrlf false
             </small>
             <br><br>
-            <p>Edit project file index.js and add Jade template to display the data</p>
+            <h3>Edit project file index.js and add Jade template to display the data</h3>
             <pre><code>
                
                 /*index.js GET Userlist - fill docs var with user data */
-router.get('/userlist', function(req, res) {
-    var db = req.db;
-    var collection = db.get('usercollection');
-    collection.find({},{},function(e,docs){
-        res.render('userlist', {
-            "userlist" : docs
-        });
-    });
-}); 
-/*userlist.jade */
-extends layout
+                router.get('/userlist', function(req, res) {
+                    var db = req.db;
+                    var collection = db.get('usercollection');
+                    collection.find({},{},function(e,docs){
+                        res.render('userlist', {
+                            "userlist" : docs
+                        });
+                    });
+                }); 
 
-block content
-  h1.
-    User List
-  ul
-    each user, i in userlist
-      li
-        a(href="#{user.email}")= user.username
+                /*userlist.jade - SPACES MATTER!*/
+                extends layout
+
+                block content
+                h1.
+                    User List
+                ul
+                    each user, i in userlist
+                    li
+                        a(href="#{user.email}")= user.username
             </code></pre>  
         </section>
     </main>    
