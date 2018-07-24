@@ -6,17 +6,30 @@
     width: 20vw;
     display: inline-block;
 }
+.sidebar .gif{
+    background-image: url(gif.gif);
+    width: 95px;
+    height:80px;
+    background-size: contain;
+    position: absolute;
+    bottom: 0;
+
+}
 .sidebar a{
     display: block;
-    color:cornsilk;
+    color:#e6e6e6;
     font-size: 1.2em;
+    padding-left: 2em;
 }
 .main {  
-    background-color: cornsilk;
+    background-color: #e6e6e6;
     margin-left: 20vw;
     display: inline-block;
     padding: 50px;
 }
 section{
     margin-bottom: 4em;
+}
+h3{
+    color:#6633997d;
 }
