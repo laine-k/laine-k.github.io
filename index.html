@@ -2,22 +2,20 @@
 <!doctype html>
 <html>
 <head> 
-    <title>Documentation</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet"
-      href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
-<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-    <link rel="stylesheet" href="style.css">
-    <script>hljs.initHighlightingOnLoad();</script>
+    <title>Notes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <link rel="stylesheet" href="assets/main.css">   
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 </head>
-<body>        
-    <div class="sidebar">              
+<body>   
+    <div class="wrapper">  
+    <div class="sidebar">  
+        <div class="tags">      
         <a href="#documentation">Documentation</a>
         <a href="#nodeSetup">Node setup</a>
         <a href="#mongodbSetup">MongoDB setup</a>
-        <a href="#machineLearning">Machine Learning</a>
-
-        <div class="gif"></div>
+        <a href="#machineLearning">Machine Learning</a>   
+    </div>     
     </div>
     <main class="main">
         <section id="documentation">
@@ -142,10 +140,66 @@
             <pre><code>
                    Matlab implementation coming soon
             </code></pre>   
-            <p>You do not really understand something unless you can explain it to your grandmother -- Albert Einstein</p> 
+         
             <a href="https://stats.stackexchange.com/questions/2691/making-sense-of-principal-component-analysis-eigenvectors-eigenvalues" target="_blank">What is PCA??</a></p>
                        
         </section>
-    </main>    
+        <button onclick="prev()">&laquo;PREV</button>  <button onclick="next()">&raquo;NEXT</button>
+
+        <div class="slider">
+            <div class="slide">
+                <h1>Title 1</h1>
+                <p>detail</p>
+            </div>
+            <div class="slide">
+                <h1>Title 2</h1>
+                <p>detail</p>
+            </div>
+            <div class="slide">
+                <h1>Title 3</h1>
+                <p>detail</p>
+            </div>
+            <div class="slide">
+                <h1>Title 4</h1>
+                <p>detail</p>
+            </div>
+            <div class="slide">
+                <h1>Title 5</h1>
+                <p>detail</p>
+            </div>
+          
+        </div>
+    </main>   
+</div>   
+    <script>
+        var d = document;
+//var items = d.querySelector('.slide');
+var items = d.querySelectorAll('.slide');
+var itemCount = d.querySelectorAll('.slide').length;
+var pos = 0;
+//var transform = Modernizr.prefixed('transform');
+
+function setTransform() {
+    items.forEach(element => {
+       element.style.transform = 'translate3d(' + (-pos * element.offsetWidth) + 'px,0,0)';
+      // console.log('transform', items,);
+    });
+  //items.style.transform = 'translate3d(' + (-pos * items.offsetWidth) + 'px,0,0)';
+
+  
+}
+
+function prev() {
+  pos = Math.max(pos - 1, 0);
+  setTransform();
+}
+
+function next() {
+  pos = Math.min(pos + 1, itemCount - 1);
+  setTransform();
+}
+
+window.addEventListener('resize', setTransform);
+    </script> 
 </body>
 </html>
