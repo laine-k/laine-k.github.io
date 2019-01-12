@@ -2,10 +2,12 @@
 <html>
 
 <head>
-    <title>Notes</title>
+    <title>Laines Kaleja</title>
+    <link rel='shortcut icon' type='assets/x-icon' href='favicon.ico' />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="assets/main.css">
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link href="vendors/prism.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -20,27 +22,367 @@
                 <a class="tag tag-fab">Prototyping and fabrication</a>
                 <a class="tag tag-perception">Multimodal perception and cognition</a>
                 <a class="tag tag-ui">UI</a>
-                <a class="tag tag-ux">UX</a>
+                <a class="tag tag-dev">Frontend development</a>
                 <a class="tag tag-motion">Motion graphics</a>
             </div>
         </div>
         <main class="main">
 
             <section>
-                <h2>PCA - Principal Component Analysis</h2>
-                <a href="https://stats.stackexchange.com/questions/2691/making-sense-of-principal-component-analysis-eigenvectors-eigenvalues"
-                    target="_blank">What is PCA??</a>
-                </p>
+                <h5 class="details">
+                    <span class="date">8 Jan 2019</span>
+                    <br>
+                    <span class="tag tag-machine-learning">Machine learning</span>
+                </h5>
+                <h2>Classifier evaluation</h2>
+                <p>
+                    Wine dataset was tested and trained using NMSC (Nearest mean classifier), LDC (Linear discriminant classifier), QDC (Quadratic
+                    discriminant classifier) and k-nn (n-nearest neighbors). To evaluate which classifier fits the best n-fold
+                    crossvalidation was used. The best results were calculated using confusion matrix. A typical multiclass
+                    performance measure is accuracy and error rate. Other measures are: precision, recall, f-measure, but
+                    those should be calculated for each class seperately.
 
-                <iframe src="https://drive.google.com/file/d/10ulpU824C2caGAViBIkqR0ogV9Dsyytn/preview" width="640" height="480"></iframe>
-                </iframe>
+                </p>
+                <h3>N-fold cross validation</h3>
+                <p>This validation type is recommended, because it uses testing data efficiently (testing data is very precious
+                    :o).</p>
+                <img src="assets/cross-val.jpg" alt="pca" />
+
+                <h3>NMSC, LDC, DQC and KNN compared</h3>
+                <br>
+                <p> NMSC: assumes that data is distributed in identity matrice. Parametric classifier.</p>
+                <br>
+                <img src="assets/nmsc.jpg" alt="pca" />
+                <br>
+                <p> LDC:based on Bayes rule, assumes a common covariance matrix for each class,but individual mean and liner
+                    distribution border.
+                    <br>
+                </p>
+                <img src="assets/lda.jpg" alt="pca" />
+                <br>
+                <p> QDC:based on Bayes rule, assumes different covariance matrices, different means and hyperbole border.
+                    <br>
+                </p>
+                <img src="assets/qdc.jpg" alt="pca" />
+                <br>
+                <p>
+                    KNN: non-parametric classifier, classifies according to the majority of the closest neighbors.
+                    <br>
+
+                </p>
+                <img src="assets/knn.jpg" alt="pca" />
+                <br>
+
+                <h3>Multi class confusion matrix</h3>
+                <br>
+                <p>
+                    Accuracy:(39+35+19)/125=0.74
+                    <br>
+
+                </p>
+                <img src="assets/conf-mat.jpg" alt="pca" />
+                <h3>Matlab implementation</h3>
+                <pre>
+                    <code class="language-matlab">
+%% Preparing prdatasets
+
+wineDataOriginal = prdataset(X, wineType);
+wineDataReconstructed = prdataset(Xr, wineType);
+
+%randomizing order of dataset
+[Xrows, Xcolumns] = size(X);
+rand_idx = randperm(Xrows);
+
+%divide data into training and testing dataset
+training_idx = rand_idx(1:125); % 70% indices for training set
+test_idx = rand_idx(125:178); % 30% indices for test set
+
+%data with original features
+X_tr = prdataset(X(training_idx, :), wineType(training_idx));
+X_test = prdataset(X(test_idx, :), wineType(test_idx));
+
+%reconstructed data
+Xr_tr = prdataset(Xr(training_idx, :), wineType(training_idx)); 
+Xr_test = prdataset(Xr(test_idx, :), wineType(test_idx));
+
+%% Parametric classifier crossvalidation
+
+%three parametric classifers (1-nmsc, 2-ldc, 3-qdc)
+for classifier = 1:3
+    switch classifier
+        case 1
+            %minimum distance classifier
+            w = nmsc([]);
+        case 2
+            %linear discriminant classifier
+            w = ldc([]);
+        case 3
+            %quadratic discriminant classifier
+            w = qdc([]);
+    end    
+    %5-fold cross validation for each classifier
+    % ERR	Average test error 
+    % CERR	Unweighted test errors 
+    % PRED_LAB	Assigned numeric labels
+    [ERR,CERR,PRED_LAB] = prcrossval(X_tr,w,5); %classifier cannot be trained for crossval
+    %calculate confusion matrix
+    cm = confmat(wineType(training_idx), PRED_LAB);
+    confmat(wineType(training_idx), PRED_LAB); %display cofusion matrix
+    %accuracy - correctly identified predictions for each class 
+    accuracyCV = sum(diag(cm))/sum(sum(cm)) %(same as 1-ERR)        
+    %calculate how many wrong classifications
+    errors=PRED_LAB~= wineType(training_idx);
+    totalErrorsCV = sum(errors)
+end
+%% Train parametric classifiers and compare the confusion matrix with testing data from crossvalidation results
+%three parametric classifers (1-nmsc, 2-ldc, 3-qdc)
+for classifier = 1:3
+    switch classifier
+        case 1
+            %minimum distance classifier
+            w_tr = nmsc(X_tr);
+        case 2
+            %linear discriminant classifier
+            w_tr = ldc(X_tr);
+        case 3
+            %quadratic discriminant classifier
+            w_tr = qdc(X_tr);
+    end    
+    PRED_LAB_TEST = X_test*w_tr*labeld;
+    %calculate confusion matrix
+    cm = confmat(wineType(test_idx), PRED_LAB_TEST);
+    confmat(wineType(test_idx), PRED_LAB_TEST); %display cofusion matrix
+    %accuracy - correctly identified predictions for each class 
+    accuracyTEST = sum(diag(cm))/sum(sum(cm)) %(same as 1-ERR)       
+    %calculate how many wrong classifications
+    errors=PRED_LAB_TEST~= wineType(test_idx);
+    totalErrorsTEST = sum(errors)
+end
+
+%% Parametric classification crossvalidation on reconstructed data
+
+%three parametric classifers (1-nmsc, 2-ldc, 3-qdc)
+for classifier = 1:3
+    switch classifier
+        case 1
+            %minimum distance classifier
+            w2 = nmsc([]);
+        case 2
+            %linear discriminant classifier
+            w2 = ldc([]);
+        case 3
+            %quadratic discriminant classifier
+            w2 = qdc([]);
+    end    
+    %5-fold cross validation for each classifier
+    % PRED_LAB	Assigned numeric labels
+    [ERR,CERR,PRED_LAB] = prcrossval(Xr_tr,w2,5); 
+    %calculate confusion matrix
+    cm = confmat(wineType(training_idx), PRED_LAB);
+    confmat(wineType(training_idx), PRED_LAB); %display cofusion matrix
+    %accuracy - correctly identified predictions for each class 
+    accuracyPCA = sum(diag(cm))/sum(sum(cm)) %(same as 1-ERR)       
+    %calculate how many wrong classifications
+    errors=PRED_LAB~=wineType(training_idx);
+    totalErrorsPCA = sum(errors)
+end
+
+%% Train parametric classifiers and compare the confusion matrices with reconstructed data
+%three parametric classifers (1-nmsc, 2-ldc, 3-qdc)
+for classifier = 1:3
+    switch classifier
+        case 1
+            %minimum distance classifier
+            w2_tr = nmsc(Xr_tr);
+        case 2
+            %linear discriminant classifier
+            w2_tr = ldc(Xr_tr);
+        case 3
+            %quadratic discriminant classifier
+            w2_tr = qdc(Xr_tr);
+    end    
+    PRED_LAB_TEST = Xr_test*w2_tr*labeld;
+    %calculate confusion matrix
+    cm = confmat(wineType(test_idx), PRED_LAB_TEST);
+    confmat(wineType(test_idx), PRED_LAB_TEST); %display cofusion matrix
+    %accuracy - correctly identified predictions for each class 
+    accuracyPCA_TEST = sum(diag(cm))/sum(sum(cm)) %(same as 1-ERR)       
+    %calculate how many wrong classifications
+    errors=PRED_LAB_TEST~= wineType(test_idx);
+    totalErrorsPCA_TEST = sum(errors)
+end
+
+%% non-parametric classifier k-nn crossvalidation on original data
+%k-nn classifers with 1, 2, 5 nearest neighbors
+for knnClassifier = 1:3
+    switch knnClassifier
+        case 1           
+            w3 = knnc([],1);
+        case 2
+            w3 = knnc([],2);
+        case 3
+            w3 = knnc([],5);
+    end    
+    %5-fold cross validation for each classifier
+    % ERR	Average test error 
+    % CERR	Unweighted test errors 
+    % PRED_LAB	Assigned numeric labels
+    [ERR,CERR,PRED_LAB] = prcrossval(X_tr,w3,5); 
+    %calculate confusion matrix
+    cm = confmat(wineType(training_idx), PRED_LAB);
+    confmat(wineType(training_idx), PRED_LAB); %display cofusion matrix
+    %accuracy - correctly identified predictions for each class 
+    accuracyKNN = sum(diag(cm))/sum(sum(cm)) %(same as 1-ERR)  
+    
+    %calculate how many wrong classifications
+    errors=PRED_LAB~=wineType(training_idx);
+    totalErrorsKNN = sum(errors)
+    
+end
+%% Train knn classifiers and compare the confusion matrix with testing data from crossvalidation results
+
+for classifier = 1:3
+    switch classifier
+        case 1            
+            w3_tr = knnc(X_tr,1);
+        case 2           
+            w3_tr = knnc(X_tr,2);
+        case 3            
+            w3_tr = knnc(X_tr,5);
+    end    
+    PRED_LAB_TEST = X_test*w3_tr*labeld;
+    %calculate confusion matrix
+    cm = confmat(wineType(test_idx), PRED_LAB_TEST);
+    confmat(wineType(test_idx), PRED_LAB_TEST); %display cofusion matrix
+    %accuracy - correctly identified predictions for each class 
+    accuracyKNN_TEST = sum(diag(cm))/sum(sum(cm)) %(same as 1-ERR)       
+    %calculate how many wrong classifications
+    errors=PRED_LAB_TEST~= wineType(test_idx);
+    totalErrorsKNN_TEST = sum(errors)
+end
+                    </code>
+                </pre>
 
             </section>
-            <section id="machineLearning">
+            <section>
+                <h5 class="details">
+                    <span class="date">8 Jan 2019</span>
+                    <br>
+                    <span class="tag tag-machine-learning">Machine learning</span>
+                </h5>
                 <h2>PCA - Principal Component Analysis</h2>
-                <a href="https://stats.stackexchange.com/questions/2691/making-sense-of-principal-component-analysis-eigenvectors-eigenvalues"
-                    target="_blank">What is PCA??</a>
+                <br>
+                <p>PCA is used to simplify datasets in order to save space and time when processing or classifing data. It can
+                    also be used as a non-parametric classifier to reveal unknown features about the data. The key idea is
+                    to keep the dataset variance as high as possible, but reduce high dimensionality to lower dimensions.
                 </p>
+                <br>
+                <a href="https://stats.stackexchange.com/questions/2691/making-sense-of-principal-component-analysis-eigenvectors-eigenvalues"
+                    target="_blank">What is PCA again??</a>
+                <br>
+                <br>
+                <p> The example below is using
+                    <a target="_blank" href="https://archive.ics.uci.edu/ml/datasets/wine">Wine dataset </a> from the Machine Learning Repository. It has 3 classes and 13 chemical features. With
+                    the help of PCA it was possible to reduce the dataset to 2 features and still classify the dataset with
+                    good results.
+                </p>
+                <h3>Results before applying z-score</h3>
+                <img src="assets/pca-1.jpg" alt="pca" />
+                <h3>Results after applying z-score</h3>
+                <img src="assets/pca-2.jpg" alt="pca" />
+                <h3>Matlab implementation</h3>
+                <pre><code class="language-matlab">
+fid = fopen('wine.data');
+data=textscan(fid, '%f%f%f%f%f%f%f%f%f%f%f%f%f%f%s', 'delimiter', ',');
+fclose(fid);
+X=[data{2} data{3} data{4} data{5} data{6} data{7} data{8} data{9} data{10} data{11} data{12} data{13} data{14} ]; %feature matrix - each column a feature, first column removed because it reperesent the wine type
+wineType = data{1};
+originalSTD = std(X);
+originalMean = mean(X);
+X= zscore(X);
+Xlength = length(X); %to get the correct row number 
+Xmean = mean(X); %mean(average)
+
+% 1 - centering data
+Xcentered = X - ones(Xlength,1) * Xmean;  % ones(Xlength,1)- populate column vector with number 1
+
+% 2 - calculating covariance
+Xcov = cov(Xcentered);
+
+% 3 - eigenvalue decomposition
+[V1 D]=eig(Xcov);
+eigenval1 = diag(D);
+
+% 4 - sorting
+[eigenval idx]=sort(eigenval1, 'descend');
+V=V1(:,idx); %eigenvectors sorted
+
+% 5 - plot eigenvectors
+f4=figure; linmod ={'r', 'b' ,'m', 'g', 'k', 'c','r', 'b' ,'m', 'g', 'k', 'c','r'};
+hold on;
+for j=1:13
+plot(V(:,j), linmod{j})
+end
+title('eigen vectors')
+
+% 6 - cumulative sum of eigvalue percentage 
+%the measure how much the variance is preserved
+%Check the graph for knee to decide how many dimensions to keep
+cs = cumsum(eigenval)/sum(eigenval);
+f = figure;
+plot(cs);
+title('cumulative sum of eigvalue percentage');
+% First two eigenvectors together have 99.9998 variance. Wine dataset would
+% be well represented by choosing first two eigenvectors. 
+
+% 7 - reduction to 2 dimension (projection on eigenvectors with highest
+% eigenvalues)
+scores= Xcentered*V(:,1:2);
+
+% 8 - reconstruction of original data based on 2 eigenvectors
+Xr = scores*V(:,1:2)'+ones(Xlength,1)*Xmean;
+
+
+% 9 - plot and compare
+%Plot the features for the reconstructed data and the original data.
+prReconData = prdataset(Xr , wineType);
+prOrginalData = prdataset(X, wineType);
+figure 
+subplot(2,1,1)
+scatterd(prOrginalData);
+title('Original')
+subplot(2,1,2)
+scatterd(prReconData);
+title('Reconstructed')
+            </code></pre>
+
+            </section>
+            <section>
+
+                <h5 class="details">
+                    <span class="date">Dec 2017</span>
+                    <br>
+                    <span class="tag tag-ui">UI</span>
+                    <span class="tag tag-dev">Frontend development</span>
+                </h5>
+                <h2>Mobile UI and frontend development</h2>
+                <p>Mobile app designed and developed for a shared office management.
+                    <br> User interface designed in Adobe XD and app development with Ionic framework. </p>
+                <img src="assets/mobile-ui.jpg" alt="mobile app ui and development" />
+
+            </section>
+            <section>
+
+                <h5 class="details">
+                    <span class="date">Apr 2015</span>
+                    <br>
+                    <span class="tag tag-dev">Frontend development</span>
+                </h5>
+                <h2>Frontend development</h2>
+                <p>Frontend development for a repair services website.
+                    <br> Made using Html5, Sass, jQuery, Bootstrap.
+                </p>
+                <img src="assets/web-frontend.jpg" alt="mobile app ui and development" />
 
             </section>
             <section>
@@ -50,7 +392,7 @@
                     <br>
                     <span class="tag tag-motion">Motion graphics</span>
                 </h5>
-                <h2>Maya animation and Boujou camera tracking</h2>
+                <h2>Maya animation</h2>
                 <p>Animation made using Maya and real life camera tracking made using Boujou software.
                     <br> Project was done individually as a part of the 3D animation course.
                     <br> Location: beach near Seoul, South Korea. </p>
@@ -63,12 +405,24 @@
             <section>
 
                 <h5 class="details">
+                    <span class="date">May 2013</span>
+                    <br>
+                    <span class="tag tag-ui">UI</span>
+                </h5>
+                <h2>UI design for eCommerce</h2>
+                <p>Design, payment flow research and prototyping for the Centrumturist web app. </p>
+                <img src="assets/web-ui.jpg" alt="web ui and development" />
+
+            </section>
+            <section>
+
+                <h5 class="details">
                     <span class="date">Jan 2013</span>
                     <br>
                     <span class="tag tag-motion">Motion graphics</span>
                 </h5>
                 <h2>Stop motion</h2>
-                <p>Photoshop, After Effects, Premiere Pro</p>
+                <p>Stop motion storytelling with 433 photos, Photoshop, After Effects, Premiere Pro.</p>
                 <br>
                 <iframe width="640" height="360" src="https://www.youtube-nocookie.com/embed/sxqb5m2UG8A?controls=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                     allowfullscreen></iframe>
@@ -77,6 +431,7 @@
 
         </main>
     </div>
+    <script src="vendors/prism.js"></script>
 </body>
 
 </html>

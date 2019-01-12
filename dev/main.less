@@ -3,7 +3,7 @@
 @color-ui: #1b3671;
 @color-perception:#4264ae;
 @color-fab:#e64661;
-@color-ux:#922336;
+@color-dev:#922336;
 @color-motion:#53286b;
 @color-light-grey:#eaf0f1;
 @shadow-base:0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
@@ -23,8 +23,8 @@
 .tag-ui{
    background: @color-ui;   
 }
-.tag-ux{
-   background: @color-ux;   
+.tag-dev{
+   background: @color-dev;   
 }
 .tag-motion{
    background: @color-motion;   
@@ -36,6 +36,9 @@ a{
 body{
    margin:0;
     font-family: 'Lato', sans-serif;
+}
+pre{
+    max-height: 45vh;
 }
              
         
@@ -56,6 +59,9 @@ body{
         .details{
             float:right;
             text-align: right;
+        }
+        img{
+            max-width:100%;
         }
     }    
 }
@@ -89,7 +95,7 @@ body{
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
-@media only screen and (min-width: 600px) {
+@media only screen and (min-width: 750px) {
     .sidebar{        
         width:30%;
         height: 100%;
@@ -103,6 +109,11 @@ body{
         padding: 3em;  
         section  {
             margin-bottom:3em;
+            width: fit-content;
+            max-width: 94%;   
+            p{
+                max-width: 70%;
+            }         
         }   
     }
     .tags{
