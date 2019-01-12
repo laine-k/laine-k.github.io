@@ -18,188 +18,29 @@
     </div>     
     </div>
     <main class="main">
-        <section id="documentation">
-            <h2>Code highlighter example:</h2>          
-           <p>Source: <a href="http://highlightjs.readthedocs.io/en/latest/release-process.html" target="_blank">http://highlightjs.readthedocs.io/en/latest/release-process.html</a></p>
-           <pre><code class="css">
-                pre {
-                    display: block;
-                    font-family: monospace;
-                    white-space: pre;
-                    margin: 1em 0;
-                }
-        </code></pre>
-        <p>Skills mind map: <a href="https://coggle.it/diagram/WMMEvSoNyAABBX2w/t/web-development-in-2018/b97ca171d59ba2ab3b7ea8da244a8ed3a154ffa067568635fe2676068a1d44d0" target="_blank">Web Dev</a></p>
-        </section>
-        <section id="nodeSetup">
-            <h2>Node setup</h2>
-            <pre><code>
-                    node -v
-                    npm -v
-                    npm install -g express-generator
-                    express projectname
-                    cd projectname
-                    npm i mongodb --save
-                    npm i monk --save
-                    npm start
-            </code></pre>   
-            <p>Now we are running Node JS webserver, with the Express engine and Jade HTML preprocessor installed.</p> 
-            <a href="https://www.mongodb.com/download-center?jmp=nav#community" target="_blank">https://www.mongodb.com/download-center?jmp=nav#community</a></p>
-                       
-        </section>
-        <section id="mongodbSetup">
-            <h2>MongoDB setup</h2>
-            <h3>Install MongoDB community server</h3>
-            <pre><code>
-                    mkdir data
-
-                    /** Launch MongoDB on Windows - on another cmd window */
-                    "C:\Program Files\MongoDB\Server\versionNR\bin\mongod.exe" --dbpath c:\node\basic-node\data\
-                    
-                    /** Establish connection to MongoDB on the first cmd window */
-                    "C:\Program Files\MongoDB\Server\versionNR\bin\mongo.exe"
-
-                    /** Create db */
-                    use dbname
-
-                    /** Add data */
-                    db.usercollection.insert({ "username" : "testuser1", "email" : "testuser1@testdomain.com" })
-                    
-                    /** See what have you added: */
-                    db.usercollection.find().pretty()
-
-                    /** Add extra data like this: */
-                    db.usercollection.insert(arrayWithJsonObjects);
-            </code></pre>  
-            <h3>Edit project file app.js</h3>
-            <pre><code>
-                /** Use Monk to let the app talk to MongoDB*/
-                var mongo = require('mongodb');
-                var monk = require('monk');
-                var db = monk('localhost:27017/dbname');
-
-                /** Make db accessable to the router */
-
-                app.use(function(req,res,next){
-                    req.db = db;
-                    next();
-                });
-            </code></pre>   
-            <b>27017 is the default port for MongoDB</b>
-            <br>
-            <small><a href='https://git-scm.com/book/en/v2/Customizing-Git-Git-Configuration' target="_blank">https://git-scm.com/book/en/v2/Customizing-Git-Git-Configuration</a>Error when git commit:
-                    Formatting and Whitespace
-
-                    Formatting and whitespace issues are some of the more frustrating and subtle problems that many developers encounter when collaborating, especially cross-platform. It’s very easy for patches or other collaborated work to introduce subtle whitespace changes because editors silently introduce them, and if your files ever touch a Windows system, their line endings might be replaced. Git has a few configuration options to help with these issues.
-                    
-                    core.autocrlf
-                    If you’re programming on Windows and working with people who are not (or vice-versa), you’ll probably run into line-ending issues at some point. This is because Windows uses both a carriage-return character and a linefeed character for newlines in its files, whereas Mac and Linux systems use only the linefeed character. This is a subtle but incredibly annoying fact of cross-platform work; many editors on Windows silently replace existing LF-style line endings with CRLF, or insert both line-ending characters when the user hits the enter key.
-                    
-                    Git can handle this by auto-converting CRLF line endings into LF when you add a file to the index, and vice versa when it checks out code onto your filesystem. You can turn on this functionality with the core.autocrlf setting. If you’re on a Windows machine, set it to true – this converts LF endings into CRLF when you check out code:
-                    
-                    $ git config --global core.autocrlf true
-                    If you’re on a Linux or Mac system that uses LF line endings, then you don’t want Git to automatically convert them when you check out files; however, if a file with CRLF endings accidentally gets introduced, then you may want Git to fix it. You can tell Git to convert CRLF to LF on commit but not the other way around by setting core.autocrlf to input:
-                    
-                    $ git config --global core.autocrlf input
-                    This setup should leave you with CRLF endings in Windows checkouts, but LF endings on Mac and Linux systems and in the repository.
-                    
-                    If you’re a Windows programmer doing a Windows-only project, then you can turn off this functionality, recording the carriage returns in the repository by setting the config value to false:
-                    
-                    $ git config --global core.autocrlf false
-            </small>
-            <br><br>
-            <h3>Edit project file index.js and add Jade template to display the data</h3>
-            <pre><code>
-               
-                /*index.js GET Userlist - fill docs var with user data */
-                router.get('/userlist', function(req, res) {
-                    var db = req.db;
-                    var collection = db.get('usercollection');
-                    collection.find({},{},function(e,docs){
-                        res.render('userlist', {
-                            "userlist" : docs
-                        });
-                    });
-                }); 
-
-                /*userlist.jade - SPACES MATTER!*/
-                extends layout
-
-                block content
-                h1.
-                    User List
-                ul
-                    each user, i in userlist
-                    li
-                        a(href="#{user.email}")= user.username
-            </code></pre>  
-        </section>
-        <section id="machineLearning">
-            <h2>PCA - Principal Component Analysis</h2>
-            <h2>https://stats.stackexchange.com/questions/2691/making-sense-of-principal-component-analysis-eigenvectors-eigenvalues</h2>
-            <pre><code>
-                   Matlab implementation coming soon
-            </code></pre>   
-         
+        
+        <section>
+            <h2>PCA - Principal Component Analysis</h2> 
             <a href="https://stats.stackexchange.com/questions/2691/making-sense-of-principal-component-analysis-eigenvectors-eigenvalues" target="_blank">What is PCA??</a></p>
                        
         </section>
-        <button onclick="prev()">&laquo;PREV</button>  <button onclick="next()">&raquo;NEXT</button>
+        <section id="machineLearning">
+            <h2>PCA - Principal Component Analysis</h2> 
+            <a href="https://stats.stackexchange.com/questions/2691/making-sense-of-principal-component-analysis-eigenvectors-eigenvalues" target="_blank">What is PCA??</a></p>
+                       
+        </section>
+        <section>
+            A larger perspective value will cause a greater difference in scroll speeds between the layers.
 
-        <div class="slider">
-            <div class="slide">
-                <h1>Title 1</h1>
-                <p>detail</p>
-            </div>
-            <div class="slide">
-                <h1>Title 2</h1>
-                <p>detail</p>
-            </div>
-            <div class="slide">
-                <h1>Title 3</h1>
-                <p>detail</p>
-            </div>
-            <div class="slide">
-                <h1>Title 4</h1>
-                <p>detail</p>
-            </div>
-            <div class="slide">
-                <h1>Title 5</h1>
-                <p>detail</p>
-            </div>
-          
-        </div>
+Next, we force the wrapper to take up 100% of the browser’s viewport and set overflow-y to auto. This enables content within the wrapper to scroll as usual, but scroll speed for descendants will now be relative to the wrapper’s perspective value:A larger perspective value will cause a greater difference in scroll speeds between the layers.
+
+Next, we force the wrapper to take up 100% of the browser’s viewport and set overflow-y to auto. This enables content within the wrapper to scroll as usual, but scroll speed for descendants will now be relative to the wrapper’s perspective value:A larger perspective value will cause a greater difference in scroll speeds between the layers.
+
+Next, we force the wrapper to take up 100% of the browser’s viewport and set overflow-y to auto. This enables content within the wrapper to scroll as usual, but scroll speed for descendants will now be relative to the wrapper’s perspective value:
+        </section>
+
+      
     </main>   
 </div>   
-    <script>
-        var d = document;
-//var items = d.querySelector('.slide');
-var items = d.querySelectorAll('.slide');
-var itemCount = d.querySelectorAll('.slide').length;
-var pos = 0;
-//var transform = Modernizr.prefixed('transform');
-
-function setTransform() {
-    items.forEach(element => {
-       element.style.transform = 'translate3d(' + (-pos * element.offsetWidth) + 'px,0,0)';
-      // console.log('transform', items,);
-    });
-  //items.style.transform = 'translate3d(' + (-pos * items.offsetWidth) + 'px,0,0)';
-
-  
-}
-
-function prev() {
-  pos = Math.max(pos - 1, 0);
-  setTransform();
-}
-
-function next() {
-  pos = Math.min(pos + 1, itemCount - 1);
-  setTransform();
-}
-
-window.addEventListener('resize', setTransform);
-    </script> 
 </body>
 </html>
