@@ -3,12 +3,15 @@
 @color-ui: #1b3671;
 @color-ux:#4264ae;
 @color-fab:#e64661;
+@color-pink:#e64661;
 @color-dev:#922336;
 @color-motion:#53286b;
 @color-light-grey:#eaf0f1;
 @shadow-base:0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+@shadow-subtle-hover:0 3px 5px rgba(0,0,0,0.10), 0 5px 5px rgba(0,0,0,0.12);
 @shadow-hover:0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 @transition:all 0.3s cubic-bezier(.25,.8,.25,1);  
+@transition-long:all 0.7s cubic-bezier(.25,.8,.25,1);  
 
 
 .tag-machine-learning{
@@ -30,7 +33,13 @@
    background: @color-motion;   
 }
 a{
-   text-decoration: none;    
+    color: @color-pink;
+    border-bottom: 1px solid @color-pink;
+    transition: @transition-long;
+    text-decoration: none;
+}
+a:hover{
+    border-bottom: 1px solid transparent;
 }
 
 body{
@@ -71,12 +80,16 @@ pre{
 }
 .intro{
     text-align: center;
-    font-size: 1.15em;
+    font-size: 1.55em;
     color:@color-light-grey;
     line-height: 1.7em;
     padding: 2em 3em;
     opacity: 0.7;
+    margin:0;
+    font-weight: 300;
 }
+
+
    
     
 
@@ -92,6 +105,25 @@ pre{
     font-weight: bold;
     display: inline-block;
     cursor: pointer;
+    border-bottom: none;
+    box-shadow: @shadow-base;
+    transition:@transition;
+}
+.tag:hover{
+    box-shadow: @shadow-subtle-hover;
+}
+.resp-iframe-container{
+    position: relative;
+    overflow: hidden;
+    padding-top: 56.25%;
+    .resp-iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: 0;
+    }
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
