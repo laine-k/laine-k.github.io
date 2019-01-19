@@ -72,6 +72,18 @@ pre{
         img{
             max-width:100%;
         }
+        .multi-images{
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+          
+                img {
+                    flex: 1;
+                    max-width: 100%;
+                    align-items: center;
+                  }
+        }
+        
     }    
 }
 .sidebar{
@@ -82,7 +94,6 @@ pre{
     text-align: center;
     font-size: 1.55em;
     color:@color-light-grey;
-    line-height: 1.7em;
     padding: 2em 3em;
     opacity: 0.7;
     margin:0;
@@ -126,6 +137,8 @@ pre{
     }
 }
 
+
+
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 750px) {
     .sidebar{        
@@ -145,6 +158,17 @@ pre{
             max-width: 94%;   
             p{
                 max-width: 70%;
+            }
+            .multi-images{
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+              
+                    img {
+                        flex:33%;
+                        max-width: 33%;
+                        align-items: center;
+                      }
             }         
         }   
     }
