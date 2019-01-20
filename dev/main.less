@@ -13,7 +13,9 @@
 @transition:all 0.3s cubic-bezier(.25,.8,.25,1);  
 @transition-long:all 0.7s cubic-bezier(.25,.8,.25,1);  
 
-
+.tag-all{
+    background: black;
+}
 .tag-machine-learning{
     background: @color-machine-learning;   
 }
@@ -62,6 +64,7 @@ pre{
         margin-bottom: 2em;
         padding: 1em 2em;               
         box-shadow: @shadow-base; 
+       // transition:@transition-long;
         h2,h5{
             display: inline-block;
         }
@@ -85,6 +88,9 @@ pre{
         }
         
     }    
+    section.hidden{
+        display: none;
+    }
 }
 .sidebar{
     background-image: url('bg.jpg');

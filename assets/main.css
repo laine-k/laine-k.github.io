@@ -1,3 +1,6 @@
+.tag-all {
+  background: black;
+}
 .tag-machine-learning {
   background: #2c3a5c;
 }
@@ -65,6 +68,9 @@ pre {
   flex: 1;
   max-width: 100%;
   align-items: center;
+}
+.main section.hidden {
+  display: none;
 }
 .sidebar {
   background-image: url('bg.jpg');

@@ -18,16 +18,17 @@
                 <br> Here are my latest projects, notes and tutorials. </h1>
 
             <div class="tags">
-                <span class="tag tag-machine-learning">Machine learning</span>
-                <span class="tag tag-fab">Prototyping and fabrication</span>
-                <span class="tag tag-ux">UX</span>
-                <span class="tag tag-ui">UI</span>
-                <span class="tag tag-dev">Frontend development</span>
-                <span class="tag tag-motion">Motion graphics</span>
+                <span onclick="showAll()" class="tag tag-all">All</span>
+                <span onclick="showMachineLearningOnly()" class="tag tag-machine-learning">Machine learning</span>
+                <span onclick="showFabOnly()" class="tag tag-fab">Prototyping and fabrication</span>
+                <span onclick="showUxOnly()" class="tag tag-ux">UX</span>
+                <span onclick="showUiOnly()" class="tag tag-ui">UI</span>
+                <span onclick="showDevOnly()" class="tag tag-dev">Frontend development</span>
+                <span onclick="showMotionOnly()" class="tag tag-motion">Motion graphics</span>
             </div>
         </div>
         <main class="main">
-                <section>
+                <section class="fab-section">
                         <h5 class="details">
                             <span class="date">15 Jan 2019</span>
                             <br>
@@ -45,7 +46,7 @@
                                 <img src="assets/box1.jpg" alt="lasercut" />
                         </div>                        
                 </section>
-            <section>
+            <section class="machine-learning-section">
                 <h5 class="details">
                     <span class="date">8 Jan 2019</span>
                     <br>
@@ -281,7 +282,7 @@ end
                 </pre>
 
             </section>
-            <section>
+            <section class="machine-learning-section">
                 <h5 class="details">
                     <span class="date">5 Jan 2019</span>
                     <br>
@@ -374,7 +375,7 @@ title('Reconstructed')
             </code></pre>
 
             </section>
-            <section>
+            <section class="fab-section">
                 <h5 class="details">
                     <span class="date">28 Nov 2018</span>
                     <br>
@@ -546,7 +547,7 @@ void loop() {
                         </code>
                     </pre>                
         </section>
-            <section>
+            <section class="ui-section dev-section">
 
                 <h5 class="details">
                     <span class="date">Dec 2017</span>
@@ -560,7 +561,7 @@ void loop() {
                 <img src="assets/mobile-ui.jpg" alt="mobile app ui and development" />
 
             </section>
-            <section>
+            <section class="dev-section">
 
                 <h5 class="details">
                     <span class="date">Apr 2015</span>
@@ -575,7 +576,7 @@ void loop() {
 
             </section>
            
-            <section>
+            <section class="motion-section">
 
                 <h5 class="details">
                     <span class="date">Dec 2015</span>
@@ -593,7 +594,7 @@ void loop() {
                     allowfullscreen></iframe>
                     </div>
             </section>
-            <section>
+            <section class="ui-section">
 
                 <h5 class="details">
                     <span class="date">May 2013</span>
@@ -605,7 +606,7 @@ void loop() {
                 <img src="assets/web-ui.jpg" alt="web ui and development" />
 
             </section>
-            <section>
+            <section class="motion-section">
 
                 <h5 class="details">
                     <span class="date">Jan 2013</span>
@@ -625,6 +626,7 @@ void loop() {
         </main>
     </div>
     <script src="vendors/prism.js"></script>
+    <script src="main.js"></script>
 </body>
 
 </html>
