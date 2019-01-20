@@ -283,7 +283,7 @@ end
             </section>
             <section>
                 <h5 class="details">
-                    <span class="date">8 Jan 2019</span>
+                    <span class="date">5 Jan 2019</span>
                     <br>
                     <span class="tag tag-machine-learning">Machine learning</span>
                 </h5>
@@ -375,6 +375,178 @@ title('Reconstructed')
 
             </section>
             <section>
+                <h5 class="details">
+                    <span class="date">28 Nov 2018</span>
+                    <br>
+                    <span class="tag tag-fab">Prototyping and fabrication</span>
+                </h5>
+                <h2>DIY breathing tracker</h2>
+                <p>
+                  FSR and conductive yarn belt prototypes were built, to experiment what would be a quick and accurate way to track breathing. FSR sensor turned out to be the most accurate and sensitive implementation, but it underwent only one testing-building iteration cycle, so the prototype has to be rebuilt to make it wireless and more comfortable.
+                  <br><br>
+                Tools: Arduino Uno Microprocessor board, FSR(Force sensitive resistor), Conductive yarn (from Adafruit), Arudino IDE (to activate sensors), Processing IDE (to record data for postprocessing).
+                </p>
+                <br>
+                <div class="multi-images">
+                   
+                        <img src="assets/fsr-circuit.jpg" alt="lasercut" />
+                        <img src="assets/fsr-belt.jpg" alt="lasercut" />
+                        <img src="assets/yarn-belt.jpg" alt="lasercut" />
+                </div>  
+                <br>Processing IDE code to save data
+                <pre><code class="language-processing">
+//SERIAL LISTENER
+import processing.serial.*;
+
+Serial myPort;
+String val;
+
+void setup()
+{
+    Init();
+    String portName = Serial.list()[0];
+    myPort = new Serial(this, portName, 9600);
+    myPort.bufferUntil(10);
+}
+
+void draw()
+{
+}
+void serialEvent (Serial myPort)
+{
+    
+    if ( myPort.available() > 0) 
+    {
+    val = myPort.readString();
+    if(val!=null){
+        val = val.substring(0, val.length()-2);
+        if(!val.equals("done")){
+        Add(val);
+        println("adding "+val+"|");
+        }else{
+        Save();
+        println("Done");
+        }
+    }
+    } 
+}
+//SAVING
+boolean saved = false;
+ArrayList<String> list;
+String fileName = "out.txt";
+
+//Output
+void Init(){
+  list = new ArrayList<String>();
+}
+
+void Add(String val){
+  list.add(val);
+}
+
+void Save(){
+  saveStrings(fileName, list.toArray(new String[list.size()]));
+}
+                </code>  
+                    </pre>   
+                    <br>
+                    <p>Arduino IDE code to activate sensors</p> 
+                    <pre>
+                        <code class="language-processing">
+const int buttonPin = 2;
+const int fsrPin = 0;
+const int irPin = 1;
+const int ledPin = 7;
+
+int buttonState = 0;
+int maxSize = 8;
+int stackSize = 0;
+float stackFsr = 0;
+float stackIr = 0;
+float prevFsr = 0;
+float threshold = 0;
+
+boolean on = false;
+boolean done = false;
+boolean switched = false;
+boolean saved = false;
+boolean first =        true;
+
+void setup() {
+  pinMode(buttonPin, INPUT);
+  pinMode(ledPin, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  delay(5);
+
+  //Sensors
+  buttonState = digitalRead(buttonPin);
+  float fsr = analogRead(fsrPin);
+  float ir = analogRead(irPin);
+
+  //Button
+  if (buttonState == HIGH && !switched) {
+    if(on)
+      done = true;
+    else
+      done = false;
+    on = !on;
+    switched = true;
+  } else if(buttonState == LOW){
+    switched = false;
+  }
+
+  //LED
+  if(on)
+    digitalWrite(ledPin, HIGH);
+  else
+    digitalWrite(ledPin, LOW);
+
+  //Test sensor
+  //Serial.println(fsr);
+  
+  //Send to Saving Script
+  if(done && !saved){
+    //Serial.print(fsr);
+    Serial.println("done");
+    saved = true;
+  }else if(!first && on){
+    //Stacking
+    if(stackSize < maxSize){
+      /*stackIr += ir;
+      stackFsr += fsr;*/
+      stackSize ++;
+    }else{
+      Serial.print(fsr);
+      Serial.print(",");
+      Serial.println(ir);
+      /*float diff = sqrt(pow(stackFsr - prevFsr, 2));
+      if (diff > threshold) {
+        Serial.println(diff);
+      }
+      prevFsr = stackFsr;*/
+      
+      /*stackIr = 0;
+      stackFsr = 0;*/
+      stackSize = 0;
+      
+      /*stackIr += ir;
+      stackFsr += fsr;*/
+    }
+    
+  }
+  else if(on){
+    Serial.println("FSR,IR");
+    first = false;
+  }
+  
+}
+                        </code>
+                    </pre>                
+        </section>
+            <section>
 
                 <h5 class="details">
                     <span class="date">Dec 2017</span>
@@ -402,6 +574,7 @@ title('Reconstructed')
                 <img src="assets/web-frontend.jpg" alt="mobile app ui and development" />
 
             </section>
+           
             <section>
 
                 <h5 class="details">
@@ -409,7 +582,7 @@ title('Reconstructed')
                     <br>
                     <span class="tag tag-motion">Motion graphics</span>
                 </h5>
-                <h2>Maya animation</h2>
+                <h2>3D animation</h2>
                 <p>Animation made using Maya and real life camera tracking made using Boujou software.
                     <br> Project was done individually as a part of the 3D animation course.
                     <br> Location: beach near Seoul, South Korea. </p>

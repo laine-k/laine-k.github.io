@@ -128,7 +128,6 @@ pre {
   }
   .main section {
     margin-bottom: 3em;
-    width: fit-content;
     max-width: 94%;
   }
   .main section p {
@@ -147,7 +146,7 @@ pre {
   .tags {
     padding: 3em;
   }
-  .tags a {
+  .tags span {
     float: right;
   }
 }
