@@ -102,17 +102,44 @@ pre{
     background-image: url('bg.jpg');
     background-size:cover;
 }
+.contact{
+    text-align: left;
+    padding:2em;
+    a{
+        color: @color-dark-grey;
+        border-bottom: none;
+        transition: @transition-long;
+        text-decoration: none;
+    }
+    a:hover{
+        color: @color-pink;
+    }
+    .icons{
+        font-size: 1.5em;
+        margin-bottom:0.8em;
+        display: inline;
+    }
+    .download{
+        border-bottom: 1px dotted;
+        font-weight: bold;
+    }
+}
 .intro{
     text-align: center;
     font-size: 1.45em;
     color:@color-dark-grey;
     padding: 2em 3em;
     margin:0;
-    font-weight: 300;
+    font-weight: 600;
+    
     i{
         font-size:0.8em;
-
     }
+    
+}
+.fade-text{
+    opacity: 0.7;
+    font-weight: 300;
 }
 
 
@@ -164,9 +191,13 @@ pre{
         left:0;
         .contact{
             position: absolute;
-            bottom: 0;
+            bottom: 5%;
             right: 0;
             padding: 2em 3em;
+            .icons{
+text-align: right;
+
+            }
         }
     }
     .intro{text-align: right;}

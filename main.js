@@ -11,6 +11,7 @@ function showUiOnly(){
     hideDev();
     hideMachineLearning();
     hideMotion();
+    showWhenBothDevUi();
  }
  function showMachineLearningOnly(){
     showAll();
@@ -25,6 +26,7 @@ function showUiOnly(){
     hideUi();
     hideMachineLearning();
     hideMotion();
+    showWhenBothDevUi();
  }
  function showMotionOnly(){
     showAll();
@@ -74,4 +76,11 @@ function hideMotion(){
     arry.forEach(element => {
         element.classList.add('hidden');
     });    
+}
+function showWhenBothDevUi(){
+    let collection = document.getElementsByClassName('dev-section ui-section');
+    let arry = Array.from(collection)
+    arry.forEach(element => {
+        element.classList.remove('hidden');
+    });   
 }

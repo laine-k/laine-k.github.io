@@ -18,8 +18,7 @@
 
             <div class="intro">
                     <!-- <div class="avatar"><img src="assets/avatar.jpg" alt="" /></div> -->
-                Hi <i class="icon-emo-wink2"></i> <strong>I'm Laine</strong>,   
-                here are my latest media tech projects and notes. </div>
+                <span class="fade-text">Hi <i class="icon-emo-wink2"></i></span> I'm Laine<span class="fade-text">, here are my latest media tech projects and notes.</span> </div>
 
             <div class="tags">
                 <span onclick="showAll()" class="tag tag-all">All</span>
@@ -31,7 +30,10 @@
                 <span onclick="showMotionOnly()" class="tag tag-motion">Motion graphics</span>
             </div>
             <div class="contact">
-                <a href="assets/resume.pdf" target="_blank">Download resume</a></li>
+                <div class="icons">
+                <a href="https://dk.linkedin.com/in/lainekaleja" target="_blank"><i class="icon-linkedin"></i></a>
+            </div>					
+                <a class="download" href="assets/resume.pdf" target="_blank">Download resume</a></li>
             </div>
             
         </div>
@@ -40,7 +42,7 @@
                         <h5 class="details">
                             <span class="date">15 Jan 2019</span>
                             <br>
-                            <span class="tag tag-fab">Prototyping and fabrication</span>
+                            <span class="tag tag-fab" onclick="showFabOnly()">Prototyping and fabrication</span>
                         </h5>
                         <h2>Laser cut candle holder</h2>
                         <p>
@@ -58,7 +60,7 @@
                 <h5 class="details">
                     <span class="date">8 Jan 2019</span>
                     <br>
-                    <span class="tag tag-machine-learning">Machine learning</span>
+                    <span class="tag tag-machine-learning" onclick="showMachineLearningOnly()">Machine learning</span>
                 </h5>
                 <h2>Classifier evaluation</h2>
                 <p>
@@ -294,7 +296,7 @@ end
                 <h5 class="details">
                     <span class="date">5 Jan 2019</span>
                     <br>
-                    <span class="tag tag-machine-learning">Machine learning</span>
+                    <span class="tag tag-machine-learning" onclick="showMachineLearningOnly()">Machine learning</span>
                 </h5>
                 <h2>PCA - Principal Component Analysis</h2>
                 <br>
@@ -387,7 +389,7 @@ title('Reconstructed')
                 <h5 class="details">
                     <span class="date">28 Nov 2018</span>
                     <br>
-                    <span class="tag tag-fab">Prototyping and fabrication</span>
+                    <span class="tag tag-fab" onclick="showFabOnly()">Prototyping and fabrication</span>
                 </h5>
                 <h2>DIY breathing tracker</h2>
                 <p>
@@ -560,8 +562,8 @@ void loop() {
                 <h5 class="details">
                     <span class="date">Dec 2017</span>
                     <br>
-                    <span class="tag tag-ui">UI</span>
-                    <span class="tag tag-dev">Frontend development</span>
+                    <span class="tag tag-ui" onclick="showUiOnly()">UI</span>
+                    <span class="tag tag-dev" onclick="showDevOnly()">Frontend development</span>
                 </h5>
                 <h2>Mobile UI and frontend development</h2>
                 <p>Mobile app designed and developed for a shared office management.
@@ -574,7 +576,7 @@ void loop() {
                 <h5 class="details">
                     <span class="date">Apr 2015</span>
                     <br>
-                    <span class="tag tag-dev">Frontend development</span>
+                    <span class="tag tag-dev" onclick="showDevOnly()">Frontend development</span>
                 </h5>
                 <h2>Frontend development</h2>
                 <p>Frontend development for a repair services website.
@@ -589,7 +591,7 @@ void loop() {
                 <h5 class="details">
                     <span class="date">Dec 2015</span>
                     <br>
-                    <span class="tag tag-motion">Motion graphics</span>
+                    <span class="tag tag-motion" onclick="showMotionOnly()">Motion graphics</span>
                 </h5>
                 <h2>3D animation</h2>
                 <p>Animation made using Maya and real life camera tracking made using Boujou software.
@@ -607,7 +609,7 @@ void loop() {
                 <h5 class="details">
                     <span class="date">May 2013</span>
                     <br>
-                    <span class="tag tag-ui">UI</span>
+                    <span class="tag tag-ui" onclick="showUiOnly()">UI</span>
                 </h5>
                 <h2>UI design for eCommerce</h2>
                 <p>Design, payment flow research and prototyping for the Centrumturist web app. </p>
@@ -619,7 +621,7 @@ void loop() {
                 <h5 class="details">
                     <span class="date">Jan 2013</span>
                     <br>
-                    <span class="tag tag-motion">Motion graphics</span>
+                    <span class="tag tag-motion" onclick="showMotionOnly()">Motion graphics</span>
                 </h5>
                 <h2>Stop motion</h2>
                 <p>Stop motion storytelling with 433 photos, Photoshop, After Effects, Premiere Pro.</p>
@@ -629,22 +631,7 @@ void loop() {
                     allowfullscreen></iframe>
                 </div>
             </section>
-
-
-        </main>
-        	<!-- Footer -->
-			<!-- <footer>
-                   
-                        <ul class="icons">
-                            <li><a href="https://dk.linkedin.com/in/lainekaleja" class="icon fa-linkedin"><span class="label"LinkedIn</span></a></li>
-                            <li><a href="https://www.behance.net/lainekaleja" class="icon fa-behance"><span class="label">Behance</span></a></li>
-                                                        <li><a href="mailto:laine.kaleja@ymail.com?Subject=Hello" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
-                        </ul>
-                        <ul class="copyright">
-                            <li><a href="assets/resume.pdf" target="_blank">Download resume</a></li>
-                        </ul>
-                   
-                </footer> -->
+        </main>        	
     </div>
     <script src="vendors/prism.js"></script>
     <script src="main.js"></script>
